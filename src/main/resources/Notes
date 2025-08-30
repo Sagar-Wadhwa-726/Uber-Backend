@@ -1,0 +1,11 @@
+1. Generation Strategy :IDENTITY - deals with ID in a normal manner, database provides a new ID for every row SEQUENCE - Used in Advances DB's, creates a new tables just for handling the ID's. Used when we want to have some batch operations. Identity will fail here since we are saving a lot of data in bunch in this case. In our case since we are not doing any batch operation, identity will work perfectly fine.
+
+2. To include the support for Geospatial database in spring boot, include the dependency of hibernate spatial. After this define the Column in the entity with the data type of Point. Also use the @Column annotation, to define the column and give it a column definition as "Geometry(Point, 4326)", this means we are dealing with the Latitudes and longitudes of earth, and no other geometry like sphere, cuboid, square etc.
+
+3. User roles have been created as an Enum, which provides another functionality that the user will not be able to provide any other value which is outside of enum, if the user does so, the database will throw error and the query won't be executed.
+
+4. Rider can't generate a new ride, only the system can do it, rider can just request for a ride hence created a new entity by the name of Ride Request.
+
+5. Add getters and setters otherwise model mapper won't work.
+
+6. If we are not using Spring Data JPA, then we would have to defined everything in the database schema ourselves.

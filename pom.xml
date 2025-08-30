@@ -30,6 +30,19 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
+		<!--Dependency to include support for Geo Spatial Database queries -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-spatial</artifactId>
+			<version>7.0.10.Final</version>
+			<type>pom</type>
+		</dependency>
+		<!--Dependency to include support for Model Mapper Configuration -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.2.4</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
