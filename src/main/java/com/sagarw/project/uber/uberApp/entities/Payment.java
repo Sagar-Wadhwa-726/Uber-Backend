@@ -3,7 +3,6 @@ package com.sagarw.project.uber.uberApp.entities;
 import com.sagarw.project.uber.uberApp.entities.enums.PaymentMethod;
 import com.sagarw.project.uber.uberApp.entities.enums.PaymentStatus;
 import jakarta.persistence.*;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;

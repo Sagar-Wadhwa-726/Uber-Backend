@@ -1,12 +1,14 @@
 package com.sagarw.project.uber.uberApp.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
+@Builder
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Rider {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -17,5 +19,4 @@ public class Rider {
     private User user;
 
     private Double rating; // Aggregate rating of the driver (average)
-
 }
