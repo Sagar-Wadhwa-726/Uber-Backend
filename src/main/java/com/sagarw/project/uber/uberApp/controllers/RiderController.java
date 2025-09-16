@@ -4,9 +4,12 @@ import com.sagarw.project.uber.uberApp.dto.RideRequestDto;
 import com.sagarw.project.uber.uberApp.services.RiderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/rider")
+@RequestMapping("/riders")
 @RequiredArgsConstructor
 @RestController
 public class RiderController {

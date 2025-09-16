@@ -1,6 +1,5 @@
 package com.sagarw.project.uber.uberApp.entities;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.sagarw.project.uber.uberApp.entities.enums.TransactionMethod;
 import com.sagarw.project.uber.uberApp.entities.enums.TransactionType;
 import jakarta.persistence.*;

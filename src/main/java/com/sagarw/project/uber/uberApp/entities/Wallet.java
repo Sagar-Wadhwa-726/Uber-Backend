@@ -3,7 +3,6 @@ package com.sagarw.project.uber.uberApp.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 

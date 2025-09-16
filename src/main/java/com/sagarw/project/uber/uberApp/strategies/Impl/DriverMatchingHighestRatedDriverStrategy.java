@@ -1,20 +1,22 @@
 package com.sagarw.project.uber.uberApp.strategies.Impl;
 
-import com.sagarw.project.uber.uberApp.dto.RideRequestDto;
 import com.sagarw.project.uber.uberApp.entities.Driver;
 import com.sagarw.project.uber.uberApp.entities.RideRequest;
+import com.sagarw.project.uber.uberApp.repositories.DriverRepository;
 import com.sagarw.project.uber.uberApp.strategies.DriverMatchingStrategy;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@ConditionalOnProperty(name = "test", havingValue = "false")
+@RequiredArgsConstructor
 public class DriverMatchingHighestRatedDriverStrategy implements DriverMatchingStrategy {
+
+    private final DriverRepository driverRepository;
 
     @Override
     public List<Driver> findMatchingDriver(RideRequest rideRequest) {
-        return List.of();
+        return driverRepository.findTenNearbyTopRatedDriver(rideRequest.getPickupLocation());
     }
 }

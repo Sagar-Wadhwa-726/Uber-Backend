@@ -33,12 +33,11 @@
     </properties>
 	<dependencies>
 		<!--Dependency to include support for Geo Spatial Database queries -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-spatial</artifactId>
-			<version>7.0.10.Final</version>
-			<type>pom</type>
-		</dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>6.6.26.Final</version>
+        </dependency>
 		<!--Dependency to include support for Model Mapper Configuration -->
 		<dependency>
 			<groupId>org.modelmapper</groupId>

@@ -3,13 +3,13 @@ package com.sagarw.project.uber.uberApp.services.Impl;
 import com.sagarw.project.uber.uberApp.dto.DriverDto;
 import com.sagarw.project.uber.uberApp.dto.SignupDto;
 import com.sagarw.project.uber.uberApp.dto.UserDto;
-import com.sagarw.project.uber.uberApp.entities.Rider;
 import com.sagarw.project.uber.uberApp.entities.User;
 import com.sagarw.project.uber.uberApp.entities.enums.Role;
 import com.sagarw.project.uber.uberApp.exceptions.RuntimeConflictException;
 import com.sagarw.project.uber.uberApp.repositories.UserRepository;
 import com.sagarw.project.uber.uberApp.services.AuthService;
 import com.sagarw.project.uber.uberApp.services.RiderService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public UserDto signup(SignupDto signupDto) {
 
         userRepository.findByEmail(signupDto.getEmail()).ifPresent(user ->{
