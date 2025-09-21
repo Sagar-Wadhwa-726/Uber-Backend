@@ -19,19 +19,20 @@ public class RideStrategyManager {
     private final RideFareCalculationSurgePricingFareCalculationStrategy surgePricingFareCalculationStrategy;
     private final RideFareCalculationDefaultFareCalculationStrategy defaultFareCalculationStrategy;
 
-    public DriverMatchingStrategy driverMatchingStrategy(double riderRating){
-        if(riderRating>=4.8)
+    public DriverMatchingStrategy driverMatchingStrategy(double riderRating) {
+        if (riderRating >= 4.8)
             return highestRatedDriverStrategy;
         return nearestDriverStrategy;
     }
-    public RideFareCalculationStrategy rideFareCalculationStrategy(){
-        LocalTime surgeStartTime = LocalTime.of(18,0);
-        LocalTime surgeEndTime = LocalTime.of(21,0);
+
+    public RideFareCalculationStrategy rideFareCalculationStrategy() {
+        LocalTime surgeStartTime = LocalTime.of(18, 0);
+        LocalTime surgeEndTime = LocalTime.of(21, 0);
         LocalTime currentTime = LocalTime.now();
         boolean isSurgeTime = currentTime.isAfter(surgeStartTime) && currentTime.isBefore(surgeEndTime);
 
-        if(isSurgeTime)
-             return surgePricingFareCalculationStrategy;
+        if (isSurgeTime)
+            return surgePricingFareCalculationStrategy;
         return defaultFareCalculationStrategy;
     }
 }

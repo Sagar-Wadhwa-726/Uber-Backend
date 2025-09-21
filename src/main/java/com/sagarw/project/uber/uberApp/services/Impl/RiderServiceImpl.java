@@ -86,7 +86,7 @@ public class RiderServiceImpl implements RiderService {
     public Rider getCurrentRider() {
         // TODO Implement spring security to get the context of the current rider, to fetch it's rating
         return riderRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(
-            "Rider not found with Id : " + 1
+                "Rider not found with Id : " + 1
         ));
     }
 }

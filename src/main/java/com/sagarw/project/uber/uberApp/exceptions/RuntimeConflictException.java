@@ -1,6 +1,6 @@
 package com.sagarw.project.uber.uberApp.exceptions;
 
-public class RuntimeConflictException extends RuntimeException{
+public class RuntimeConflictException extends RuntimeException {
     public RuntimeConflictException() {
         super();
     }

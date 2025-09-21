@@ -32,9 +32,9 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Ride getRideById(Long rideId) {
-        return rideRepository.findById(rideId).orElseThrow(()->(
+        return rideRepository.findById(rideId).orElseThrow(() -> (
                 new ResourceNotFoundException("Ride not found with id : " + rideId)
-                ));
+        ));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class RideServiceImpl implements RideService {
         return null;
     }
 
-    private String generateRandomOtp(){
+    private String generateRandomOtp() {
         Random random = new Random();
         int otpInt = random.nextInt(10000);
         return String.format("%04d", otpInt);

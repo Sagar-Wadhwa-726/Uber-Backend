@@ -39,13 +39,13 @@ public class DriverServiceImpl implements DriverService {
     public RideDto acceptRide(Long rideRequestId) {
         // Check if the ride is already accepted or not
         RideRequest rideRequest = rideRequestService.findRideRequestById(rideRequestId);
-        if(!rideRequest.getRideRequestStatus().equals(RideRequestStatus.PENDING)){
+        if (!rideRequest.getRideRequestStatus().equals(RideRequestStatus.PENDING)) {
             throw new RuntimeException("Ride Request can't be accepted, status is : " + rideRequest.getRideRequestStatus());
         }
 
         /*Check if current driver able to accept the ride or not*/
         Driver currentDriver = getCurrentDriver();
-        if(!currentDriver.getAvailable()){
+        if (!currentDriver.getAvailable()) {
             throw new RuntimeException("Driver can't accept ride due to unavailability !");
         }
 
@@ -69,15 +69,15 @@ public class DriverServiceImpl implements DriverService {
         Ride ride = rideService.getRideById(rideId);
         Driver driver = getCurrentDriver();
         /*Check if this driver owns the ride, only then they can start the ride*/
-        if(!driver.equals(ride.getDriver())){
+        if (!driver.equals(ride.getDriver())) {
             throw new RuntimeException("Driver can't start the ride as they have not accepted this ride earlier !");
         }
 
-        if(!ride.getRideStatus().equals(RideStatus.CONFIRMED)){
+        if (!ride.getRideStatus().equals(RideStatus.CONFIRMED)) {
             throw new RuntimeException("Ride Status is not confirmed, hence the ride can't be started ! Status is : " + ride.getRideStatus());
         }
 
-        if(!otp.equals(ride.getOtp())){
+        if (!otp.equals(ride.getOtp())) {
             throw new RuntimeException("OTP is not valid !" + otp);
         }
 
@@ -112,6 +112,6 @@ public class DriverServiceImpl implements DriverService {
         // TODO : Get the current driver using Spring Security
         return driverRepository.findById(2L).orElseThrow(() -> (
                 new ResourceNotFoundException("Current Driver not found with id : 2")
-                ));
+        ));
     }
 }

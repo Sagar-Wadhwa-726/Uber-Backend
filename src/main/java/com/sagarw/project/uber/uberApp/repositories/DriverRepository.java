@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /*We need to find the Drivers who are within the vicinity of the pickup location
-* Geospatial Database is very efficient in these distance related calculations*/
+ * Geospatial Database is very efficient in these distance related calculations*/
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Long> {
     @Query(value = "select d.*, ST_Distance(d.current_location, :pickupLocation)" +
@@ -22,7 +22,7 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
 
 
     /*This method will help to find the top 10 rated drivers which are nearby to the
-    * pickup location*/
+     * pickup location*/
     @Query(value = "SELECT d.* " +
             "FROM Driver d " +
             "WHERE d.available = true " +

@@ -3,7 +3,10 @@ package com.sagarw.project.uber.uberApp.entities;
 import com.sagarw.project.uber.uberApp.entities.enums.PaymentMethod;
 import com.sagarw.project.uber.uberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
 

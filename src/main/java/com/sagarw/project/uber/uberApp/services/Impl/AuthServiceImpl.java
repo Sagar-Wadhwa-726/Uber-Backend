@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public UserDto signup(SignupDto signupDto) {
 
-        userRepository.findByEmail(signupDto.getEmail()).ifPresent(user ->{
+        userRepository.findByEmail(signupDto.getEmail()).ifPresent(user -> {
             throw new RuntimeConflictException("Can't signup, user already exists with this e-mail !");
         });
 
@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
         User savedUser = userRepository.save(mappedUser);
 
         /*Everything which is associated to the user has to be also created over here
-        * Create user related entities*/
+         * Create user related entities*/
 
         // RIDER needs to be created
         riderService.createNewRider(savedUser);

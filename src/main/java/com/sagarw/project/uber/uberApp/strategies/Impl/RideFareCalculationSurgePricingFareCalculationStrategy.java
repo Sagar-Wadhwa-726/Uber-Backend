@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RideFareCalculationSurgePricingFareCalculationStrategy implements RideFareCalculationStrategy {
 
-    private final DistanceService distanceService;
-
     /*surge factor can be decided from another API call, like weather API to tell whether it is raining at a particular location or not, if raining then apply the surge*/
     private static final double SURGE_FACTOR = 2;
+    private final DistanceService distanceService;
+
     public double calculateFare(RideRequest rideRequest) {
         double distance = distanceService.calculateDistance(rideRequest.getPickupLocation(),
                 rideRequest.getDropOffLocation());

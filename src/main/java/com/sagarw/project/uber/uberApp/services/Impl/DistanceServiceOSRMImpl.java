@@ -15,8 +15,8 @@ public class DistanceServiceOSRMImpl implements DistanceService {
 
     @Override
     public double calculateDistance(Point src, Point dest) {
-        try{
-            String uri = src.getX()+","+src.getY()+";"+dest.getX()+","+dest.getY();
+        try {
+            String uri = src.getX() + "," + src.getY() + ";" + dest.getX() + "," + dest.getY();
             OSRMResponseDto responseDto = RestClient.builder()
                     .baseUrl(OSRM_API_BASE_URL)
                     .build()
@@ -25,20 +25,19 @@ public class DistanceServiceOSRMImpl implements DistanceService {
                     .retrieve()
                     .body(OSRMResponseDto.class);
 
-            return responseDto.getRoutes().get(0).getDistance()/1000.0;
-        }
-        catch (Exception e){
+            return responseDto.getRoutes().get(0).getDistance() / 1000.0;
+        } catch (Exception e) {
             throw new RuntimeException("Error getting data from OSRM " + e.getMessage());
         }
     }
 }
 
 @Data
-class OSRMResponseDto{
+class OSRMResponseDto {
     private List<OSRMRoute> routes;
 }
 
 @Data
-class OSRMRoute{
+class OSRMRoute {
     private Double distance;
 }

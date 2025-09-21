@@ -1,6 +1,6 @@
 package com.sagarw.project.uber.uberApp.exceptions;
 
-public class ResourceNotFoundException extends RuntimeException{
+public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException() {
         super();
     }

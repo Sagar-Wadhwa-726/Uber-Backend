@@ -12,17 +12,17 @@ public class ApiResponse<T> {
     private T data;
     private ApiError apiError;
 
-    public ApiResponse(){
+    public ApiResponse() {
         this.timeStamp = LocalDateTime.now();
     }
 
-    public ApiResponse(T data){
+    public ApiResponse(T data) {
         this();
-        this.data=data;
+        this.data = data;
     }
 
-    public ApiResponse(ApiError apiError){
+    public ApiResponse(ApiError apiError) {
         this();
-        this.apiError=apiError;
+        this.apiError = apiError;
     }
 }
