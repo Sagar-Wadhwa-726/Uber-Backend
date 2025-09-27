@@ -3,8 +3,7 @@ package com.sagarw.project.uber.uberApp.entities;
 import com.sagarw.project.uber.uberApp.entities.enums.TransactionMethod;
 import com.sagarw.project.uber.uberApp.entities.enums.TransactionType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -12,6 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
+@Builder
+@AllArgsConstructor
 public class WalletTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class WalletTransaction {
     @Enumerated(value = EnumType.STRING)
     private TransactionMethod transactionMethod;
 
-    @OneToOne
+    @ManyToOne
     private Ride ride;
 
     private String transactionId;

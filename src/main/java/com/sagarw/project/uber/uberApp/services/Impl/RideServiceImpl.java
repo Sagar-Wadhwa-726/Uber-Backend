@@ -1,9 +1,9 @@
 package com.sagarw.project.uber.uberApp.services.Impl;
 
-import com.sagarw.project.uber.uberApp.dto.RideRequestDto;
 import com.sagarw.project.uber.uberApp.entities.Driver;
 import com.sagarw.project.uber.uberApp.entities.Ride;
 import com.sagarw.project.uber.uberApp.entities.RideRequest;
+import com.sagarw.project.uber.uberApp.entities.Rider;
 import com.sagarw.project.uber.uberApp.entities.enums.RideRequestStatus;
 import com.sagarw.project.uber.uberApp.entities.enums.RideStatus;
 import com.sagarw.project.uber.uberApp.exceptions.ResourceNotFoundException;
@@ -37,10 +37,6 @@ public class RideServiceImpl implements RideService {
         ));
     }
 
-    @Override
-    public void matchWithDriver(RideRequestDto rideRequestDto) {
-
-    }
 
     @Override
     public Ride createNewRide(RideRequest rideRequest, Driver driver) {
@@ -63,13 +59,13 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public Page<Ride> getAllRidesOfRider(Long riderId, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfRider(Rider rider, PageRequest pageRequest) {
+        return rideRepository.findByRider(rider, pageRequest);
     }
 
     @Override
-    public Page<Ride> getAllRidesOfDriver(Long driverId, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfDriver(Driver driver, PageRequest pageRequest) {
+        return rideRepository.findByDriver(driver, pageRequest);
     }
 
     private String generateRandomOtp() {

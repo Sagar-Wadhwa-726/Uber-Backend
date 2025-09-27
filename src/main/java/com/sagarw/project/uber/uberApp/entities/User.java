@@ -2,7 +2,9 @@ package com.sagarw.project.uber.uberApp.entities;
 
 import com.sagarw.project.uber.uberApp.entities.enums.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "app_user") // Since postgresql DB already has a user table
 public class User {
     @Id
