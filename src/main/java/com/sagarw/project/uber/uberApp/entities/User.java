@@ -14,7 +14,10 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Table(name = "app_user") // Since postgresql DB already has a user table
+@Table(name = "app_user",
+        indexes = {
+                @Index(name = "idx_user_email", columnList = "email")
+        }) // Since postgresql DB already has a user table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,7 +7,7 @@ import com.sagarw.project.uber.uberApp.services.RideRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/*Created a different service for Ride Request and did not used the Ride Request repository directly, reason for this is encapsulation and loose coupling*/
+/*Created a different service for Ride Request and did not use the Ride Request repository directly, reason for this is encapsulation and loose coupling*/
 /*Also because Repository should be accessed through their services only*/
 @Service
 @RequiredArgsConstructor

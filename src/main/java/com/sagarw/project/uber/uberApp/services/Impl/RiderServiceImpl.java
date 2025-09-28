@@ -11,6 +11,7 @@ import com.sagarw.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.sagarw.project.uber.uberApp.repositories.RideRequestRepository;
 import com.sagarw.project.uber.uberApp.repositories.RiderRepository;
 import com.sagarw.project.uber.uberApp.services.DriverService;
+import com.sagarw.project.uber.uberApp.services.RatingService;
 import com.sagarw.project.uber.uberApp.services.RideService;
 import com.sagarw.project.uber.uberApp.services.RiderService;
 import com.sagarw.project.uber.uberApp.strategies.RideStrategyManager;
@@ -36,6 +37,7 @@ public class RiderServiceImpl implements RiderService {
     private final RiderRepository riderRepository;
     private final RideService rideService;
     private final DriverService driverService;
+    private final RatingService ratingService;
 
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
@@ -80,7 +82,20 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public DriverDto rateDriver(Long rideId, Integer rating) {
-        return null;
+        Ride ride = rideService.getRideById(rideId);
+        Rider rider = getCurrentRider();
+
+        // rider has to be owner of this ride to rate the driver
+        if (!rider.equals(ride.getDriver())) {
+            throw new RuntimeException("Driver is not the owner of this ride !");
+        }
+
+        // the status of the ride should be ENDED only then driver should be allowed to rate the rider
+        if (!ride.getRideStatus().equals(RideStatus.ENDED)) {
+            throw new RuntimeException("Ride status is not ended hence driver can't rate the rider, status : " + ride.getRideStatus());
+        }
+
+        return ratingService.rateDriver(ride, rating);
     }
 
     @Override
