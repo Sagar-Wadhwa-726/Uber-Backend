@@ -6,6 +6,7 @@ import com.sagarw.project.uber.uberApp.dto.RiderDto;
 import com.sagarw.project.uber.uberApp.entities.Driver;
 import com.sagarw.project.uber.uberApp.entities.Ride;
 import com.sagarw.project.uber.uberApp.entities.RideRequest;
+import com.sagarw.project.uber.uberApp.entities.User;
 import com.sagarw.project.uber.uberApp.entities.enums.RideRequestStatus;
 import com.sagarw.project.uber.uberApp.entities.enums.RideStatus;
 import com.sagarw.project.uber.uberApp.exceptions.ResourceNotFoundException;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -146,7 +148,7 @@ public class DriverServiceImpl implements DriverService {
 
         // the status of the ride should be ENDED only then rider should be allowed to rate the rider
         if (!ride.getRideStatus().equals(RideStatus.ENDED)) {
-            throw new RuntimeException("Ride status is not ended hence rider can't rate the driver, status : " + ride.getRideStatus());
+            throw new RuntimeException("Ride status is not ended hence rider can't rate the rider, status : " + ride.getRideStatus());
         }
 
         return ratingService.rateRider(ride, rating);
@@ -168,9 +170,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver getCurrentDriver() {
-        // TODO : Get the current driver using Spring Security
-        return driverRepository.findById(2L).orElseThrow(() -> (
-                new ResourceNotFoundException("Current Driver not found with id : 2")
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return driverRepository.findByUser(user).orElseThrow(() -> (
+                new ResourceNotFoundException("Driver not associated with user with id : " + user.getId())
         ));
     }
 

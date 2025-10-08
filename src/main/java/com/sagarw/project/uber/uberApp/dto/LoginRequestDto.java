@@ -1,18 +1,13 @@
 package com.sagarw.project.uber.uberApp.dto;
 
-import com.sagarw.project.uber.uberApp.entities.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    private Long id;
-    private String name;
+public class LoginRequestDto {
     private String email;
-    private Set<Role> roles;
+    private String password;
 }

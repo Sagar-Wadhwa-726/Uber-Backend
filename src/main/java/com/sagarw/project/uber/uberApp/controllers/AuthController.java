@@ -1,14 +1,18 @@
 package com.sagarw.project.uber.uberApp.controllers;
 
-import com.sagarw.project.uber.uberApp.dto.DriverDto;
-import com.sagarw.project.uber.uberApp.dto.OnBoardDriverDto;
-import com.sagarw.project.uber.uberApp.dto.SignupDto;
-import com.sagarw.project.uber.uberApp.dto.UserDto;
+import com.sagarw.project.uber.uberApp.dto.*;
 import com.sagarw.project.uber.uberApp.services.AuthService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,9 +26,33 @@ public class AuthController {
         return new ResponseEntity<>(authService.signup(signupDto), HttpStatus.CREATED);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/onBoardNewDriver/{userId}")
     ResponseEntity<DriverDto> onBoardNewDriver(@PathVariable Long userId,
                                                @RequestBody OnBoardDriverDto onBoardDriverDto) {
         return new ResponseEntity<>(authService.onboardNewDriver(userId, onBoardDriverDto.getVehicleId()), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto,
+                                           HttpServletResponse httpServletResponse) {
+        String[] tokens = authService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
+        Cookie cookie = new Cookie("token", tokens[1]);
+        cookie.setSecure(false); // true -> cookie should be passed only over https
+        cookie.setHttpOnly(true); // cookie can't be accessed by browser JS, only passed through HttpRequests
+        httpServletResponse.addCookie(cookie);
+        return ResponseEntity.ok(new LoginResponseDto(tokens[0]));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponseDto> refresh(HttpServletRequest httpServletRequest) {
+        String refreshToken = Arrays.stream(httpServletRequest.getCookies())
+                .filter(cookie -> "refreshToken".equals(cookie.getName()))
+                .findFirst()
+                .map(Cookie::getValue)
+                .orElseThrow(() -> new AuthenticationServiceException("Refresh token not found inside the Cookies !"));
+
+        String accessToken = authService.refreshToken(refreshToken);
+        return ResponseEntity.ok(new LoginResponseDto(accessToken));
     }
 }

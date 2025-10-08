@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -86,13 +87,13 @@ public class RiderServiceImpl implements RiderService {
         Rider rider = getCurrentRider();
 
         // rider has to be owner of this ride to rate the driver
-        if (!rider.equals(ride.getDriver())) {
-            throw new RuntimeException("Driver is not the owner of this ride !");
+        if (!rider.equals(ride.getRider())) {
+            throw new RuntimeException("Rider is not the owner of this ride !");
         }
 
         // the status of the ride should be ENDED only then driver should be allowed to rate the rider
         if (!ride.getRideStatus().equals(RideStatus.ENDED)) {
-            throw new RuntimeException("Ride status is not ended hence driver can't rate the rider, status : " + ride.getRideStatus());
+            throw new RuntimeException("Ride status is not ended hence rider can't rate the driver, status : " + ride.getRideStatus());
         }
 
         return ratingService.rateDriver(ride, rating);
@@ -120,9 +121,9 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public Rider getCurrentRider() {
-        // TODO Implement spring security to get the context of the current rider, to fetch it's rating
-        return riderRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(
-                "Rider not found with Id : " + 1
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return riderRepository.findByUser(user).orElseThrow(() -> new ResourceNotFoundException(
+                "Rider not associated with user with  Id : " + user.getId()
         ));
     }
 }
