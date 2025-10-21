@@ -6,7 +6,7 @@ phases:
       java: corretto21
     commands:
       - echo "Installing Java Related Dependencies . . ."
-  pre-build:
+  pre_build:
     commands:
       - echo "Logging in to Docker Hub"
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
