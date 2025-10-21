@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+    commands:
+      - echo "Installing Java Related Dependencies . . ."
+  pre-build:
+    commands:
+      - echo "Logging in to Docker Hub"
+      - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  build:
+    commands:
+      - echo "Building, Testing & Packaging the application !"
+      - mvn package
+  post_build:
+    commands:
+      - echo "Build, Testing & Packaging completed !"
+artifacts:
+  files:
+    - target/*.jar
+  discard-paths: yes
+cache:
+  paths:
+    - '/root/.m2/**/*'

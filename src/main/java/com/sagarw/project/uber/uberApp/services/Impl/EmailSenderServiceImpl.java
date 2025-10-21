@@ -17,30 +17,28 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
     @Override
     public void sendEmail(String toEmail, String subject, String body) {
-        try{
+        try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(toEmail);
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(body);
             javaMailSender.send(simpleMailMessage);
             log.info("Email has been sent !");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.info("Can't send e-mail : {}", e.getMessage());
         }
     }
 
     @Override
     public void sendEmail(String[] toEmail, String subject, String body) {
-        try{
+        try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(toEmail);
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(body);
             javaMailSender.send(simpleMailMessage);
             log.info("Email has been sent !");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.info("Can't send e-mail : {}", e.getMessage());
         }
     }
